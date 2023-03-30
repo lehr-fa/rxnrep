@@ -13,15 +13,16 @@ defaults:
   - optimizer: adams.yaml
 
   # lightning settings
-  - trainer: minimal.yaml
+  - trainer: single_gpu.yaml
   - logger: wandb.yaml
   - callbacks: predictive.yaml
 
   # cv
-  - cross_validate: kfold.yaml
+  - cross_validate: multi_random_split.yaml
 
 # other configs
 seed: 35
+restore: False
 skip_test: False # skip running model against test set after training finishes
 git_repo_path: null # path to the git repo (used to log commit)
 # git_repo_path: /Users/mjwen/Applications/rxnrep

@@ -6,5 +6,5 @@ ratio: 0.2
 select_mode: ratio
 ratio_multiplier: out_center
 reaction_center_mode: functional_group
-functional_group_smarts_filenames: /Users/mjwen/Applications/rxnrep_analysis/rxnrep_analysis/data_cleaning/smarts_daylight.tsv
+functional_group_smarts_filenames: /home/hgf_dlr/hgf_nmr5289/profile/rxnrep/assets/smarts_daylight.tsv
 transform_probability: 0.5

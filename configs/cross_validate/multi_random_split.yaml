@@ -4,7 +4,7 @@
 
 _target_: rxnrep.utils.cross_validate.multi_train_test_split
 filename: null # not used, will be overwritten by trainset_filename of datamodule
-trainset_size: 16
+trainset_size: 8
 testset_size_min: 4
 stratify: reaction_type
 n_splits: 5

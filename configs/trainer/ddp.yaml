@@ -10,7 +10,7 @@ sync_batchnorm: True
 resume_from_checkpoint: null # this will be overwritten if `config.restore` is true
 
 # special settings
-max_epochs: 500
+max_epochs: 100
 num_nodes: 1
-gpus: 2
+gpus: 4
 accelerator: ddp

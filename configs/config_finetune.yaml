@@ -13,7 +13,7 @@ defaults:
   - optimizer: adams.yaml
 
   # lightning settings
-  - trainer: minimal.yaml
+  - trainer: single_gpu.yaml
   - logger: wandb.yaml
   - callbacks: predictive.yaml
 
