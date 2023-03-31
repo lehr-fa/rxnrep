@@ -22,7 +22,7 @@ defaults:
 
 # other configs
 seed: 35
-restore: False
+restore: True
 skip_test: False # skip running model against test set after training finishes
 git_repo_path: null # path to the git repo (used to log commit)
 # git_repo_path: /Users/mjwen/Applications/rxnrep
