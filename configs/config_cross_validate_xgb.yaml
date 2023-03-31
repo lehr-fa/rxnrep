@@ -1,0 +1,41 @@
+# Cross validation config for regression/classification. Pretrained model can be either
+# a contrastive model, or pretrained regression/classification model, which should be
+# specified in finetuner.
+
+defaults:
+  # data
+  - datamodule: classification/schneider.yaml
+
+  # model
+  - model/finetuner: classifier.yaml
+  - model/xgb: xgb.yaml
+
+  # training
+  - optimizer: adams.yaml
+
+  # lightning settings
+  - trainer: single_gpu.yaml
+  - logger: wandb.yaml
+  - callbacks: predictive.yaml
+
+  # cv
+  - cross_validate: multi_random_split.yaml
+
+# other configs
+seed: 35
+restore: True
+skip_test: False # skip running model against test set after training finishes
+git_repo_path: null # path to the git repo (used to log commit)
+# git_repo_path: /Users/mjwen/Applications/rxnrep
+return_val_metric_score: False # let the train function return val metric instead of test metric
+
+# Copy pretrained model to current directory (e.g. o817ixt6)
+# if null, should provide pretrained_checkpoint_filename etc in finetuner
+pretrained_wandb_id: null
+
+# path to original working directory
+# hydra hijacks working directory by changing it to the current log directory,
+# something like: .../outputs/2021-05-03/11-26-06
+# It's useful to have original working directory ...
+# learn more here: https://hydra.cc/docs/next/tutorials/basic/running_your_app/working_directory
+original_working_dir: ${hydra:runtime.cwd}
