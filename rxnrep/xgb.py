@@ -231,7 +231,7 @@ def inference_on_dl(model, dl):
             feats, reaction_feats = model(mol_graphs, rxn_graphs, feats, metadata, return_mode=None)
         
         feats_out.append(reaction_feats.cpu().numpy())
-        labels_out.append(labels.cpu().numpy())
+        labels_out.append(next(iter(labels.values())).cpu().numpy())
     
     return np.concatenate(feats_out), np.concatenate(labels_out)
 
