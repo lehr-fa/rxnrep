@@ -24,6 +24,24 @@ from rxnrep.utils.wandb import save_files_to_wandb, write_running_metadata
 logger = logging.getLogger(__file__)
 
 
+# XGB PARAMETERS
+XGB_BOOSTER = 'dart'
+XGB_ETA = 0.3
+XGB_GAMMA = 0.3
+XGB_MAX_DEPTH = 6
+XGB_MIN_CHILD_WIDTH = 5
+XGB_COLSAMPLE_BYTREE = 0.5
+XGB_COLSAMPLE_BYLEVEL = 0.5
+XGB_SUBSAMPLE = 1.
+XGB_SAMPLING_METHOD = 'gradient'
+XGB_SCALE_POS_WEIGHT = 1.
+XGB_RATE_DROP = 0.
+XGB_TREE_METHOD = 'gpu_hist'
+XGB_OBJECTIVE = 'multi:softmax'
+XGB_NUM_ROUND = 100
+XGB_NUM_EARLY_STOPPING_ROUND = 20
+
+
 def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> float:
     """
     Custom XGBoost Metric for global F1 score.
@@ -47,17 +65,17 @@ def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> floa
 def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels, num_classes):
     
     params = {
-        'booster': config.model.xgb.xgb.booster,
-        'eta': config.model.xgb.xgb.learning_rate,
-        'gamma': config.model.xgb.xgb.gamma,
-        'max_depth': config.model.xgb.xgb.max_depth,
-        'min_child_weight': config.model.xgb.xgb.min_child_weight,
-        'colsample_bytree': config.model.xgb.xgb.colsample_bytree,
-        'colsample_bylevel': config.model.xgb.xgb.colsample_bylevel,
-        'subsample': config.model.xgb.xgb.xgb_subsampling_rate,
-        'sampling_method': config.model.xgb.xgb.xgb_subsampling_mode,
-        'scale_pos_weight': config.model.xgb.xgb.scale_pos_weight,
-        'objective': config.model.xgb.xgb.objective,
+        'booster': XGB_BOOSTER,
+        'eta': XGB_ETA,
+        'gamma': XGB_GAMMA,
+        'max_depth': XGB_MAX_DEPTH,
+        'min_child_weight': XGB_MIN_CHILD_WIDTH,
+        'colsample_bytree': XGB_COLSAMPLE_BYTREE,
+        'colsample_bylevel': XGB_COLSAMPLE_BYLEVEL,
+        'subsample': XGB_SUBSAMPLE,
+        'sampling_method': XGB_SAMPLING_METHOD,
+        'scale_pos_weight': XGB_SCALE_POS_WEIGHT,
+        'objective': XGB_OBJECTIVE,
         'num_class': num_classes,
         'seed': config.seed
     }
@@ -69,8 +87,8 @@ def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels
     metric = partial(xgb_F1Score, num_classes=num_classes)
     
     xgb_model = xgb.train(params, train_data, evals=[(train_data, 'train'), (val_data, 'validation')], 
-                          evals_result=evals_result, num_boost_round=config.model.xgb.xgb.num_round, feval=metric, maximize=True, 
-                          early_stopping_rounds=config.model.xgb.xgb.num_early_stopping_round, verbose_eval=True)
+                          evals_result=evals_result, num_boost_round=XGB_NUM_ROUND, feval=metric, maximize=True, 
+                          early_stopping_rounds=XGB_NUM_EARLY_STOPPING_ROUND, verbose_eval=True)
     
     return xgb_model
 

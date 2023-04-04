@@ -8,7 +8,7 @@ trainset_filename: ../../../dataset/grambow/grambow_train.tsv
 valset_filename: ../../../dataset/grambow/grambow_val.tsv
 testset_filename: ../../../dataset/grambow/grambow_test.tsv
 
-batch_size: 500
+batch_size: 1000
 num_workers: 0
 pin_memory: True
 state_dict_filename: dataset_state_dict.yaml
