@@ -12,12 +12,12 @@ defaults:
   - optimizer: adams.yaml
 
   # lightning settings
-  - trainer: minimal.yaml
+  - trainer: single_gpu.yaml
   - logger: wandb.yaml
   - callbacks: predictive.yaml
 
   # cv
-  - cross_validate: kfold.yaml
+  - cross_validate: multi_random_split.yaml
 
 # other configs
 seed: 35
