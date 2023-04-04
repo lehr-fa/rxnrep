@@ -60,8 +60,9 @@ def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> floa
 
     f1_metric = tm.F1(num_classes=num_classes, average='micro', compute_on_step=False)
     f1_metric(preds_t, y_t)
+    out = f1_metric.compute().item()
 
-    return f1_metric.compute().item()
+    return out
 
 
 def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels, num_classes):
