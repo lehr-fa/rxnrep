@@ -133,6 +133,8 @@ def main(cfg: DictConfig):
         
         score = xgb_eval(xgb_model, test_feats, test_labels, num_classes)
         
+        logger.info(f"Score: {score}")
+        
         metric_scores.append(score)
 
     metrics, mean, std = compute_metric_statistics(metric_scores)
