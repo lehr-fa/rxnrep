@@ -41,7 +41,7 @@ XGB_NUM_ROUND = 100
 XGB_NUM_EARLY_STOPPING_ROUND = 20
 
 
-def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> float:
+def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> Tuple[str, float]:
     """
     Custom XGBoost Metric for global F1 score.
 
@@ -62,7 +62,7 @@ def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> floa
     f1_metric(preds_t, y_t)
     out = f1_metric.compute().item()
 
-    return out
+    return "F1_score", out
 
 
 def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels, num_classes):
