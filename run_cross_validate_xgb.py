@@ -44,7 +44,7 @@ logger = logging.getLogger(__file__)
 os.environ["HYDRA_FULL_ERROR"] = "1"
 
 
-@hydra.main(config_path="configs", config_name="config_cross_validate_xgb.yaml")
+@hydra.main(config_path="configs", config_name="config_cross_validate.yaml")
 def main(cfg: DictConfig):
 
     # The copy_trained_model fn here is only for test purpose, should remove
