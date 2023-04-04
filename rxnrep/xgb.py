@@ -99,15 +99,14 @@ def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels
 def xgb_eval(xgb_model, test_feats, test_labels, num_classes):
     test_data = xgb.DMatrix(test_feats)
     preds = xgb_model.predict(test_data, iteration_range=(0, xgb_model.best_iteration+1), strict_shape=True)
-    preds = preds[:, 0]
-    preds = one_hot(preds, num_classes=max(test_labels)+1)
     
     acc_metric = tm.Accuracy(num_classes=num_classes, average='micro', compute_on_step=False)
     prec_metric = tm.Precision(num_classes=num_classes, average='micro', compute_on_step=False)
     recall_metric = tm.Recall(num_classes=num_classes, average='micro', compute_on_step=False)
     f1_metric = tm.F1(num_classes=num_classes, average='micro', compute_on_step=False)
     
-    preds_t = torch.tensor(preds)
+    preds_t = torch.tensor(preds[:, 0])
+    preds_t = one_hot(preds_t, num_classes=max(test_labels)+1)
     y_t = torch.tensor(test_labels, dtype=torch.int64)
     
     acc_metric(preds_t, y_t)
