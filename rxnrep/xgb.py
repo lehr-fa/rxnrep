@@ -34,7 +34,6 @@ XGB_COLSAMPLE_BYTREE = 0.5
 XGB_COLSAMPLE_BYLEVEL = 0.5
 XGB_SUBSAMPLE = 1.
 XGB_SAMPLING_METHOD = 'gradient_based'
-XGB_SCALE_POS_WEIGHT = 1.
 XGB_RATE_DROP = 0.
 XGB_TREE_METHOD = 'gpu_hist'
 XGB_OBJECTIVE = 'multi:softmax'
@@ -77,7 +76,6 @@ def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels
         'colsample_bylevel': XGB_COLSAMPLE_BYLEVEL,
         'subsample': XGB_SUBSAMPLE,
         'sampling_method': XGB_SAMPLING_METHOD,
-        'scale_pos_weight': XGB_SCALE_POS_WEIGHT,
         'objective': XGB_OBJECTIVE,
         'num_class': num_classes,
         'seed': config.seed
