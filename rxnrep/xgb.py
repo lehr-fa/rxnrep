@@ -106,7 +106,7 @@ def xgb_eval(xgb_model, test_feats, test_labels, num_classes):
     f1_metric = tm.F1(num_classes=num_classes, average='micro', compute_on_step=False)
     
     preds_t = torch.tensor(preds[:, 0], dtype=torch.int64)
-    preds_t = one_hot(preds_t, num_classes=max(test_labels)+1)
+    preds_t = one_hot(preds_t, num_classes=max(test_labels)+1).float()
     y_t = torch.tensor(test_labels, dtype=torch.int64)
     
     acc_metric(preds_t, y_t)
