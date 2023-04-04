@@ -57,7 +57,7 @@ def xgb_F1Score(preds: np.ndarray, dtest: xgb.DMatrix, num_classes: int) -> floa
     y = dtest.get_label()  # [B]
     
     preds_t = torch.tensor(preds)
-    y_t = torch.tensor(y)
+    y_t = torch.tensor(y, dtype=torch.int64)
 
     f1_metric = tm.F1(num_classes=num_classes, average='micro', compute_on_step=False)
     f1_metric(preds_t, y_t)
@@ -106,7 +106,7 @@ def xgb_eval(xgb_model, test_feats, test_labels, num_classes):
     f1_metric = tm.F1(num_classes=num_classes, average='micro', compute_on_step=False)
     
     preds_t = torch.tensor(preds)
-    y_t = torch.tensor(test_labels)
+    y_t = torch.tensor(test_labels, dtype=torch.int64)
     
     acc_metric(preds_t, y_t)
     prec_metric(preds_t, y_t)
