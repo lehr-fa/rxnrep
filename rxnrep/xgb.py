@@ -96,7 +96,8 @@ def xgb_fit(config: DictConfig, train_feats, train_labels, val_feats, val_labels
 
 
 def xgb_eval(xgb_model, test_feats, test_labels, num_classes):
-    preds = xgb_model.predict(test_feats, iteration_range=(0, xgb_model.best_iteration+1), strict_shape=True)
+    test_data = xgb.DMatrix(test_feats)
+    preds = xgb_model.predict(test_data, iteration_range=(0, xgb_model.best_iteration+1), strict_shape=True)
     preds = np.argmax(preds, axis=1)
     
     acc_metric = tm.Accuracy(num_classes=num_classes, average='micro', compute_on_step=False)
